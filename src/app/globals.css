@@ -73,15 +73,15 @@ body {
 
 @layer base {
   * {
-    @apply border-border;
+    @apply border-neutral-200 dark:border-neutral-800;
   }
   body {
-    @apply bg-background text-foreground;
+    @apply bg-white dark:bg-black text-foreground;
     background: linear-gradient(
       to bottom,
       transparent,
-      rgb(var(--background-end-rgb))
+      hsl(var(--background-end-rgb))
     )
-    rgb(var(--background-start-rgb));
+    hsl(var(--background-start-rgb));
   }
 }
