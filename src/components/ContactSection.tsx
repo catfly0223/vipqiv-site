@@ -44,9 +44,9 @@ export const ContactSection = ({ id, className }: { id?: string, className?: str
   }
 
   return (
-    <section id={id} className={`min-h-screen bg-gray-900 text-white py-20 ${className || ''}`}>
+    <section id={id} className={`min-h-screen py-20 ${className || ''}`}>
       <div className="container mx-auto px-4">
-        <h2 className="text-4xl font-bold mb-12 text-center">お問い合わせ</h2>
+        <h2 className="text-4xl font-bold mb-12 text-center text-white">お問い合わせ</h2>
         <motion.form
           initial={{ opacity: 0 }}
           whileInView={{ opacity: 1 }}
@@ -86,10 +86,10 @@ export const ContactSection = ({ id, className }: { id?: string, className?: str
               setIsSubmitting(false)
             }
           }}
-          className="max-w-lg mx-auto space-y-6"
+          className="max-w-lg mx-auto space-y-6 bg-white rounded-lg p-8 shadow-lg"
         >
           <div>
-            <label htmlFor="name" className="block mb-2">
+            <label htmlFor="name" className="block mb-2 text-gray-700">
               お名前
             </label>
             <input
@@ -99,13 +99,13 @@ export const ContactSection = ({ id, className }: { id?: string, className?: str
               value={formData.name}
               onChange={handleChange}
               required
-              className="w-full px-3 py-2 text-gray-700 bg-gray-200 rounded"
+              className="w-full px-3 py-2 border border-gray-300 rounded focus:ring-2 focus:ring-blue-500 focus:border-transparent"
               disabled={isSubmitting}
             />
           </div>
 
           <div>
-            <label htmlFor="email" className="block mb-2">
+            <label htmlFor="email" className="block mb-2 text-gray-700">
               メールアドレス
             </label>
             <input
@@ -115,13 +115,13 @@ export const ContactSection = ({ id, className }: { id?: string, className?: str
               value={formData.email}
               onChange={handleChange}
               required
-              className="w-full px-3 py-2 text-gray-700 bg-gray-200 rounded"
+              className="w-full px-3 py-2 border border-gray-300 rounded focus:ring-2 focus:ring-blue-500 focus:border-transparent"
               disabled={isSubmitting}
             />
           </div>
 
           <div>
-            <label htmlFor="message" className="block mb-2">
+            <label htmlFor="message" className="block mb-2 text-gray-700">
               メッセージ
             </label>
             <textarea
@@ -131,7 +131,7 @@ export const ContactSection = ({ id, className }: { id?: string, className?: str
               onChange={handleChange}
               required
               rows={4}
-              className="w-full px-3 py-2 text-gray-700 bg-gray-200 rounded"
+              className="w-full px-3 py-2 border border-gray-300 rounded focus:ring-2 focus:ring-blue-500 focus:border-transparent"
               disabled={isSubmitting}
             />
           </div>
@@ -139,7 +139,7 @@ export const ContactSection = ({ id, className }: { id?: string, className?: str
           {status.message && (
             <div
               className={`p-4 rounded ${
-                status.type === 'success' ? 'bg-green-600' : 'bg-red-600'
+                status.type === 'success' ? 'bg-green-100 text-green-800' : 'bg-red-100 text-red-800'
               }`}
             >
               {status.message}

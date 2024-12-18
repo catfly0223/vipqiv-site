@@ -9,9 +9,9 @@ const services = [
 
 export const ServiceSection = ({ id, className }: { id?: string, className?: string }) => {
   return (
-    <section id={id} className={`min-h-screen bg-gray-800 text-white py-20 ${className || ''}`}>
+    <section id={id} className={`min-h-screen py-20 ${className || ''}`}>
       <div className="container mx-auto px-4">
-        <h2 className="text-4xl font-bold mb-12 text-center">サービス</h2>
+        <h2 className="text-4xl font-bold mb-12 text-center text-white">サービス</h2>
         <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
           {services.map((service, index) => (
             <motion.div
@@ -20,10 +20,10 @@ export const ServiceSection = ({ id, className }: { id?: string, className?: str
               whileInView={{ opacity: 1, x: 0 }}
               viewport={{ once: true }}
               transition={{ duration: 0.5, delay: index * 0.1 }}
-              className="bg-gray-700 rounded-lg p-6"
+              className="bg-black/30 backdrop-blur-sm rounded-lg p-6 text-white"
             >
               <h3 className="text-2xl font-semibold mb-4">{service.title}</h3>
-              <p>{service.description}</p>
+              <p className="text-white/90">{service.description}</p>
             </motion.div>
           ))}
         </div>

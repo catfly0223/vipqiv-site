@@ -4,7 +4,6 @@ import { useSection } from '@/context/SectionContext'
 
 const navItems = [
   { name: 'ホーム', id: 'home' },
-  { name: 'プロジェクト', id: 'projects' },
   { name: 'サービス', id: 'services' },
   { name: 'お問い合わせ', id: 'contact' }
 ]
@@ -32,6 +31,7 @@ export const SideNavigation = () => {
                   ? 'bg-white scale-125' 
                   : 'bg-white/50 hover:bg-white/75'
               }`}
+              aria-label={item.name}
             >
               <span className="sr-only">{item.name}</span>
             </a>
