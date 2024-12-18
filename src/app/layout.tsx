@@ -17,7 +17,7 @@ export default function RootLayout({
 }) {
   return (
     <html lang="ja">
-      <body className={inter.className}>
+      <body className={`${inter.className} pt-16`}>
         <ClientLayout>{children}</ClientLayout>
       </body>
     </html>

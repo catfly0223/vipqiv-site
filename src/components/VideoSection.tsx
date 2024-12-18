@@ -2,11 +2,10 @@
 
 import { useEffect, useRef } from 'react'
 
-export const VideoSection = () => {
+const VideoSection = () => {
   const videoRef = useRef<HTMLVideoElement>(null)
 
   useEffect(() => {
-    // 動画の自動再生
     videoRef.current?.play().catch(() => {
       console.log('Video autoplay was blocked')
     })
@@ -27,4 +26,6 @@ export const VideoSection = () => {
     </div>
   )
 }
+
+export default VideoSection
 

@@ -2,15 +2,20 @@
 
 import { useRef, useEffect, useState } from 'react'
 import { useScroll } from 'framer-motion'
-import { VideoSection } from '@/components/VideoSection'
+import dynamic from 'next/dynamic'
 import { ProjectSection } from '@/components/ProjectSection'
 import { ServiceSection } from '@/components/ServiceSection'
 import { ContactSection } from '@/components/ContactSection'
 import { MainTitle } from '@/components/MainTitle'
 
+// VideoSectionをクライアントサイドのみでレンダリング
+const VideoSection = dynamic(() => import('@/components/VideoSection'), {
+  ssr: false
+})
+
 export default function Home() {
   const containerRef = useRef<HTMLDivElement>(null)
-  const [isTitleVisible, setIsTitleVisible] = useState(true)
+  const [isTitleVisible, setIsTitleVisible] = useState<boolean>(true)
 
   useEffect(() => {
     const handleScroll = () => {
@@ -33,7 +38,7 @@ export default function Home() {
 
       <div 
         ref={containerRef} 
-        className="relative min-h-screen overflow-y-auto"
+        className="relative min-h-screen overflow-y-auto pt-16"
         style={{ 
           scrollBehavior: 'smooth',
           backgroundColor: 'transparent'
@@ -46,7 +51,9 @@ export default function Home() {
         </section>
         
         <div className="relative z-10">
+          {/*
           <ProjectSection id="projects" className="min-h-screen backdrop-blur-sm bg-black/30" />
+          */}
           <ServiceSection id="services" className="min-h-screen backdrop-blur-sm bg-black/30" />
           <ContactSection id="contact" className="min-h-screen backdrop-blur-sm bg-black/30" />
         </div>

@@ -1,18 +1,46 @@
-import { useState } from 'react'
+'use client'
+
+import { useState, useEffect } from 'react'
 import { motion } from 'framer-motion'
 
-export const ContactSection = ({ id, className }: { id?: string, className?: string }) => {
-  const [formData, setFormData] = useState({ name: '', email: '', message: '' })
+interface FormData {
+  name: string
+  email: string
+  message: string
+}
 
-  const handleChange = (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => {
-    const { name, value } = e.target
-    setFormData(prev => ({ ...prev, [name]: value }))
+export const ContactSection = ({ id, className }: { id?: string, className?: string }) => {
+  const [mounted, setMounted] = useState(false)
+  const [formData, setFormData] = useState<FormData>({ 
+    name: '', 
+    email: '', 
+    message: '' 
+  })
+  const [status, setStatus] = useState<{
+    type: 'success' | 'error' | null
+    message: string
+  }>({ type: null, message: '' })
+  const [isSubmitting, setIsSubmitting] = useState(false)
+
+  useEffect(() => {
+    setMounted(true)
+  }, [])
+
+  if (!mounted) {
+    return null // 初期レンダリング時はnullを返す
   }
 
-  const handleSubmit = (e: React.FormEvent) => {
-    e.preventDefault()
-    console.log('Form submitted:', formData)
-    // ここで実際のフォーム送信処理を行います
+  const initialFormState = {
+    name: '',
+    email: '',
+    message: ''
+  }
+
+  const handleChange = (
+    e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>
+  ) => {
+    const { name, value } = e.target
+    setFormData(prev => ({ ...prev, [name]: value }))
   }
 
   return (
@@ -24,11 +52,46 @@ export const ContactSection = ({ id, className }: { id?: string, className?: str
           whileInView={{ opacity: 1 }}
           viewport={{ once: true }}
           transition={{ duration: 0.5 }}
-          onSubmit={handleSubmit}
-          className="max-w-lg mx-auto"
+          onSubmit={async (e) => {
+            e.preventDefault()
+            setIsSubmitting(true)
+            setStatus({ type: null, message: '' })
+
+            try {
+              const response = await fetch('/api/contact', {
+                method: 'POST',
+                headers: {
+                  'Content-Type': 'application/json',
+                },
+                body: JSON.stringify(formData),
+              })
+
+              const data = await response.json()
+
+              if (!response.ok) {
+                throw new Error(data.error || 'エラーが発生しました')
+              }
+
+              setStatus({
+                type: 'success',
+                message: 'メッセージを送信しました。お問い合わせありがとうございます。',
+              })
+              setFormData(initialFormState)
+            } catch (error) {
+              setStatus({
+                type: 'error',
+                message: error instanceof Error ? error.message : 'エラーが発生しました',
+              })
+            } finally {
+              setIsSubmitting(false)
+            }
+          }}
+          className="max-w-lg mx-auto space-y-6"
         >
-          <div className="mb-4">
-            <label htmlFor="name" className="block mb-2">お名前</label>
+          <div>
+            <label htmlFor="name" className="block mb-2">
+              お名前
+            </label>
             <input
               type="text"
               id="name"
@@ -37,10 +100,14 @@ export const ContactSection = ({ id, className }: { id?: string, className?: str
               onChange={handleChange}
               required
               className="w-full px-3 py-2 text-gray-700 bg-gray-200 rounded"
+              disabled={isSubmitting}
             />
           </div>
-          <div className="mb-4">
-            <label htmlFor="email" className="block mb-2">メールアドレス</label>
+
+          <div>
+            <label htmlFor="email" className="block mb-2">
+              メールアドレス
+            </label>
             <input
               type="email"
               id="email"
@@ -49,22 +116,42 @@ export const ContactSection = ({ id, className }: { id?: string, className?: str
               onChange={handleChange}
               required
               className="w-full px-3 py-2 text-gray-700 bg-gray-200 rounded"
+              disabled={isSubmitting}
             />
           </div>
-          <div className="mb-4">
-            <label htmlFor="message" className="block mb-2">メッセージ</label>
+
+          <div>
+            <label htmlFor="message" className="block mb-2">
+              メッセージ
+            </label>
             <textarea
               id="message"
               name="message"
               value={formData.message}
               onChange={handleChange}
               required
-              className="w-full px-3 py-2 text-gray-700 bg-gray-200 rounded"
               rows={4}
-            ></textarea>
+              className="w-full px-3 py-2 text-gray-700 bg-gray-200 rounded"
+              disabled={isSubmitting}
+            />
           </div>
-          <button type="submit" className="w-full bg-blue-500 text-white py-2 px-4 rounded hover:bg-blue-600 transition duration-300">
-            送信
+
+          {status.message && (
+            <div
+              className={`p-4 rounded ${
+                status.type === 'success' ? 'bg-green-600' : 'bg-red-600'
+              }`}
+            >
+              {status.message}
+            </div>
+          )}
+
+          <button
+            type="submit"
+            disabled={isSubmitting}
+            className="w-full bg-blue-600 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded transition-colors disabled:opacity-50 disabled:cursor-not-allowed"
+          >
+            {isSubmitting ? '送信中...' : '送信する'}
           </button>
         </motion.form>
       </div>

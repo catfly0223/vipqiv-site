@@ -1,10 +1,10 @@
 import { motion } from 'framer-motion'
 
 const services = [
-  { title: 'ウェブデザイン', description: '最新のトレンドを取り入れた美しいウェブサイトの制作' },
-  { title: '3Dモデリング', description: '没入感のある3Dモデルとアニメーションの制作' },
-  { title: 'AIソリューション', description: 'ビジネスプロセスを最適化するAIソリューションの開発' },
-  { title: 'VR/AR開発', description: '革新的なVR/ARアプリケーションの設計と開発' },
+  { title: 'ウェブ制作', description: '最新のトレンドを取り入れたウェブサイトの制作' },
+  { title: 'SEO', description: 'サイトの検索順位を向上させるSEO戦略の立案と実行' },
+  { title: 'マーケティング', description: 'デジタルマーケティング戦略の立案から実行までのサポート' },
+  { title: 'AI関連', description: 'AI技術を活用したソリューションの開発と実装' },
 ]
 
 export const ServiceSection = ({ id, className }: { id?: string, className?: string }) => {
