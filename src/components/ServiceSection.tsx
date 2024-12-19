@@ -1,9 +1,11 @@
 import { motion, AnimatePresence } from 'framer-motion'
 import { useState } from 'react'
-import { ChevronDown } from 'lucide-react'
+import { ChevronDown, Megaphone, Cpu, Layers } from 'lucide-react'
+import { Button } from '@/components/ui/button'
 
 const services = [
   { 
+    icon: <Megaphone className="w-12 h-12 text-[#00ff00]" />,
     title: 'ウェブ制作', 
     description: '最新のトレンドを取り入れたウェブサイトの制作',
     details: [
@@ -15,6 +17,7 @@ const services = [
     ]
   },
   { 
+    icon: <Cpu className="w-12 h-12 text-[#00ff00]" />,
     title: 'SEO', 
     description: 'サイトの検索順位を向上させるSEO戦略の立案と実行',
     details: [
@@ -25,81 +28,90 @@ const services = [
       'アナリティクスレポートの作成'
     ]
   },
-  // ... 他のサービスも同様に詳細を追加
+  // ... 他のサービス���同様に詳細を追加
 ]
 
 export const ServiceSection = ({ id, className }: { id?: string, className?: string }) => {
   const [expandedIndex, setExpandedIndex] = useState<number | null>(null)
 
   return (
-    <section id={id} className={`min-h-screen py-20 ${className || ''}`}>
+    <div className={`${className || ''}`}>
       <div className="container mx-auto px-4">
-        <h2 className="text-4xl font-bold mb-12 text-center text-white">サービス</h2>
-        <div className="grid grid-cols-1 md:grid-cols-2 gap-8 relative">
-          {services.map((service, index) => {
-            const isExpanded = expandedIndex === index
-            
-            return (
-              <motion.div
-                key={index}
-                layout
-                transition={{ 
-                  layout: { duration: 0.3 }
-                }}
-                className={`bg-black/30 backdrop-blur-sm rounded-lg overflow-hidden
-                  ${isExpanded ? 'md:col-span-2 z-10' : ''}`}
-              >
-                <button
-                  onClick={() => setExpandedIndex(expandedIndex === index ? null : index)}
-                  className="w-full p-6 text-left flex justify-between items-center"
+        <div className="max-w-4xl mx-auto">
+          <div className="space-y-8">
+            {services.map((service, index) => {
+              const isExpanded = expandedIndex === index
+
+              return (
+                <motion.div
+                  key={index}
+                  className="bg-black/80 border border-[#00ff00] rounded-lg overflow-hidden hover:bg-[#00ff00]/10 transition-colors"
+                  layout
                 >
-                  <motion.div layout="position" className="flex-1">
-                    <h3 className="text-2xl font-semibold mb-4 text-white">{service.title}</h3>
-                    <p className="text-white/90">{service.description}</p>
-                  </motion.div>
-                  <motion.div
-                    layout="position"
-                    animate={{ rotate: isExpanded ? 180 : 0 }}
-                    transition={{ duration: 0.2 }}
+                  <button
+                    onClick={() => setExpandedIndex(isExpanded ? null : index)}
+                    className="w-full p-8 text-left"
                   >
-                    <ChevronDown className="text-white w-6 h-6" />
-                  </motion.div>
-                </button>
-                
-                <AnimatePresence mode="wait">
-                  {isExpanded && (
-                    <motion.div
-                      initial={{ height: 0, opacity: 0 }}
-                      animate={{ height: 'auto', opacity: 1 }}
-                      exit={{ height: 0, opacity: 0 }}
-                      transition={{ duration: 0.3 }}
-                      className="px-6 pb-6 overflow-hidden"
-                    >
-                      <div className="md:grid md:grid-cols-2 gap-8">
-                        <motion.div layout="position" className="mb-6 md:mb-0">
-                          <h4 className="text-xl font-semibold mb-4 text-white">詳細情報</h4>
-                          <ul className="space-y-2 text-white/90 list-disc list-inside">
-                            {service.details.map((detail, detailIndex) => (
-                              <li key={detailIndex}>{detail}</li>
-                            ))}
-                          </ul>
-                        </motion.div>
-                        <motion.div layout="position">
-                          <h4 className="text-xl font-semibold mb-4 text-white">実績例</h4>
-                          <div className="bg-black/20 rounded-lg p-4 text-white/90">
-                            実績例やケーススタディの内容をここに表示します。
-                          </div>
-                        </motion.div>
+                    <div className="flex items-center justify-between">
+                      <div className="flex items-center space-x-6">
+                        <div className="flex-shrink-0">
+                          {service.icon}
+                        </div>
+                        <div>
+                          <h3 className="text-[#00ff00] font-mono text-xl mb-2">{service.title}</h3>
+                          <p className="text-[#00ff00]/80 font-mono text-sm">{service.description}</p>
+                        </div>
                       </div>
-                    </motion.div>
-                  )}
-                </AnimatePresence>
-              </motion.div>
-            )
-          })}
+                      <ChevronDown
+                        className={`w-6 h-6 text-[#00ff00] transition-transform ${
+                          isExpanded ? 'transform rotate-180' : ''
+                        }`}
+                      />
+                    </div>
+                  </button>
+
+                  <AnimatePresence>
+                    {isExpanded && (
+                      <motion.div
+                        initial={{ height: 0, opacity: 0 }}
+                        animate={{ 
+                          height: 'auto', 
+                          opacity: 1,
+                          transition: { duration: 0.3 }
+                        }}
+                        exit={{ 
+                          height: 0, 
+                          opacity: 0,
+                          transition: { duration: 0.3 }
+                        }}
+                        className="px-6 pb-6 overflow-hidden"
+                      >
+                        <div className="md:grid md:grid-cols-2 gap-8">
+                          <motion.div layout="position" className="mb-6 md:mb-0">
+                            <h4 className="text-[#00ff00] font-mono text-xl mb-4">詳細情報</h4>
+                            <ul className="space-y-2 text-[#00ff00]/80 font-mono list-disc list-inside">
+                              {service.details.map((detail, detailIndex) => (
+                                <li key={detailIndex}>{detail}</li>
+                              ))}
+                            </ul>
+                          </motion.div>
+                          <motion.div layout="position">
+                            <h4 className="text-[#00ff00] font-mono text-xl mb-4">実績例</h4>
+                            <div className="bg-black/20 border border-[#00ff00]/20 rounded-lg p-4 text-[#00ff00]/80 font-mono">
+                              実績例やケーススタディの内容をここに表示します。
+                            </div>
+                          </motion.div>
+                        </div>
+                      </motion.div>
+                    )}
+                  </AnimatePresence>
+                </motion.div>
+              )
+            })}
+          </div>
         </div>
       </div>
-    </section>
+    </div>
   )
 }
 

@@ -2,23 +2,15 @@
 
 import { useRef, useEffect, useState } from 'react'
 import { useScroll } from 'framer-motion'
-import dynamic from 'next/dynamic'
 import { ProjectSection } from '@/components/ProjectSection'
 import { ServiceSection } from '@/components/ServiceSection'
 import { ContactSection } from '@/components/ContactSection'
 import { MainTitle } from '@/components/MainTitle'
-
-const VideoSection = dynamic(() => import('@/components/VideoSection'), {
-  ssr: false,
-  loading: () => (
-    <div className="w-full h-full bg-gray-900" />
-  )
-})
+import LainBackground from '@/components/LainBackground'
+import GlitchText from '@/components/GlitchText'
 
 export default function Home() {
-  const containerRef = useRef<HTMLDivElement>(null)
   const [isTitleVisible, setIsTitleVisible] = useState<boolean>(true)
-  const [scrollProgress, setScrollProgress] = useState<number>(0)
 
   useEffect(() => {
     if (typeof window === 'undefined') return
@@ -26,12 +18,6 @@ export default function Home() {
     const handleScroll = () => {
       const scrollPosition = window.scrollY
       const windowHeight = window.innerHeight
-      
-      // スクロール進捗を0-1の範囲で計算（より遅めに効果を適用）
-      const progress = Math.min(scrollPosition / (windowHeight * 1.5), 1)
-      setScrollProgress(progress)
-      
-      // タイトルの表示制御
       setIsTitleVisible(scrollPosition < windowHeight * 0.05)
     }
 
@@ -42,31 +28,40 @@ export default function Home() {
   }, [])
 
   return (
-    <>
-      {/* 固定背景レイヤー */}
-      <div className="fixed inset-0 w-full h-full">
-        <VideoSection scrollProgress={scrollProgress} />
-      </div>
-
-      {/* スクロール可能なコンテンツレイヤー */}
-      <div className="absolute inset-0 w-full min-h-screen">
-        {/* ファーストビューセクション */}
-        <section 
-          id="home" 
-          className="h-screen flex items-center justify-center"
-        >
-          <div className="z-10">
-            <MainTitle isVisible={isTitleVisible} />
-          </div>
-        </section>
-
-        {/* コンテンツセクション */}
-        <div>
-          <ServiceSection id="services" className="bg-transparent" />
-          <ContactSection id="contact" className="bg-transparent" />
+    <div className="min-h-screen bg-black overflow-hidden">
+      {/* <NavBar /> */}
+      <LainBackground />
+      
+      {/* Hero Section */}
+      <section className="relative min-h-screen flex flex-col items-center justify-center p-4">
+        <GlitchText className="text-4xl md:text-6xl font-mono text-[#00ff00] mb-4 tracking-wider">
+          vipqiv Lab
+        </GlitchText>
+        <div className="text-[#00ff00] font-mono text-xl mb-16">
+          Internet Marketing
         </div>
-      </div>
-    </>
+      </section>
+
+      {/* Services Section */}
+      <section id="services" className="relative py-20">
+        <div className="flex flex-col items-center">
+          <GlitchText className="text-4xl md:text-6xl font-mono text-[#00ff00] mb-12 tracking-wider">
+            Services
+          </GlitchText>
+        </div>
+        <ServiceSection id="services" className="bg-transparent" />
+      </section>
+
+      {/* Contact Section */}
+      <section id="contact" className="relative py-20">
+        <div className="flex flex-col items-center">
+          <GlitchText className="text-4xl md:text-6xl font-mono text-[#00ff00] mb-12 tracking-wider">
+            Contact
+          </GlitchText>
+        </div>
+        <ContactSection id="contact" className="bg-transparent" />
+      </section>
+    </div>
   )
 }
 
