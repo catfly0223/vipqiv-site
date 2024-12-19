@@ -95,12 +95,12 @@ export const ServiceSection = ({ id, className }: { id?: string, className?: str
                               ))}
                             </ul>
                           </motion.div>
-                          <motion.div layout="position">
+                          {/* <motion.div layout="position">
                             <h4 className="text-[#00ff00] font-mono text-xl mb-4">実績例</h4>
                             <div className="bg-black/20 border border-[#00ff00]/20 rounded-lg p-4 text-[#00ff00]/80 font-mono">
                               実績例やケーススタディの内容をここに表示します。
                             </div>
-                          </motion.div>
+                          </motion.div> */}
                         </div>
                       </motion.div>
                     )}
