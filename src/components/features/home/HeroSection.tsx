@@ -1,5 +1,5 @@
 import { motion } from 'framer-motion'
-import GlitchText from '@/components/GlitchText'
+import GlitchText from '@/components/ui/GlitchText'
 import { matrixReveal, fadeInUp, slideIn } from '@/config/animations'
 
 export const HeroSection = () => {

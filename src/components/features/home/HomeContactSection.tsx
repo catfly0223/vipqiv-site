@@ -1,6 +1,6 @@
 import { motion } from 'framer-motion'
 import { ContactSection } from '@/components/features/contact/ContactSection'
-import GlitchText from '@/components/GlitchText'
+import GlitchText from '@/components/ui/GlitchText'
 import { fadeInUp, matrixReveal } from '@/config/animations'
 
 export const HomeContactSection = () => {

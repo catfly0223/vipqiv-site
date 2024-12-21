@@ -1,17 +1,17 @@
 'use client'
 
-import { SectionProvider } from '@/context/SectionContext'
-import Header from '@/components/Header'
-import Footer from '@/components/Footer'
+import React from 'react'
+import Header from '@/components/layout/Header'
+import Footer from '@/components/layout/Footer'
 import { motion, AnimatePresence } from 'framer-motion'
 
 interface ClientLayoutProps {
   children: React.ReactNode
 }
 
-export const ClientLayout: React.FC<ClientLayoutProps> = ({ children }) => {
+const ClientLayout = ({ children }: ClientLayoutProps) => {
   return (
-    <SectionProvider>
+    <>
       <Header />
       <AnimatePresence mode="wait">
         <motion.main
@@ -25,6 +25,8 @@ export const ClientLayout: React.FC<ClientLayoutProps> = ({ children }) => {
         </motion.main>
       </AnimatePresence>
       <Footer />
-    </SectionProvider>
+    </>
   )
-} 
+}
+
+export default ClientLayout 

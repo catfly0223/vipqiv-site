@@ -52,7 +52,7 @@ const Header = () => {
         <Link 
           href="/" 
           className="text-[#00ff00] font-mono text-xl hover:text-[#00ff00]/80 transition-colors"
-          onClick={(e) => handleNavigation(e, '/')}
+          onClick={(e) => handleNavigation(e, '/#home')}
         >
           vipqiv Lab
         </Link>

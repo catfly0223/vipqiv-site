@@ -2,7 +2,6 @@
 
 import { motion } from 'framer-motion'
 import { ServiceList } from './ServiceList'
-import GlitchText from '@/components/GlitchText'
 
 interface ServiceSectionProps {
   id?: string

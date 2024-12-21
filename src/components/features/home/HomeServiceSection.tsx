@@ -1,6 +1,6 @@
 import { motion } from 'framer-motion'
 import { ServiceList } from '@/components/features/services/ServiceList'
-import GlitchText from '@/components/GlitchText'
+import GlitchText from '@/components/ui/GlitchText'
 import { fadeInUp, matrixReveal } from '@/config/animations'
 
 export const HomeServiceSection = () => {
