@@ -1,13 +1,15 @@
 import './globals.css'
-import type { Metadata } from 'next'
 import { Inter } from 'next/font/google'
 import { ClientLayout } from '@/components/ClientLayout'
+import { metadata as siteMetadata } from '@/config/site'
 
 const inter = Inter({ subsets: ['latin'] })
 
-export const metadata: Metadata = {
-  title: 'vipqiv Lab',
-  description: 'インターネットマーケティング、SEO、サイト制作、Webサービス開発に特化したクリエイティブ集団',
+export const metadata = {
+  ...siteMetadata,
+  icons: {
+    icon: '/favicon.ico',  // 基本のfavicon
+  },
 }
 
 export default function RootLayout({

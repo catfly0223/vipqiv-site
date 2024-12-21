@@ -22,15 +22,24 @@ const Header = () => {
     
     if (href.startsWith('/#')) {
       const targetId = href.replace('/#', '')
-      const targetElement = document.getElementById(targetId)
       
       if (pathname !== '/') {
         router.push('/')
         setTimeout(() => {
-          targetElement?.scrollIntoView({ behavior: 'smooth' })
+          if (targetId === 'home') {
+            window.scrollTo({ top: 0, behavior: 'smooth' })
+          } else {
+            const targetElement = document.getElementById(targetId)
+            targetElement?.scrollIntoView({ behavior: 'smooth' })
+          }
         }, 100)
       } else {
-        targetElement?.scrollIntoView({ behavior: 'smooth' })
+        if (targetId === 'home') {
+          window.scrollTo({ top: 0, behavior: 'smooth' })
+        } else {
+          const targetElement = document.getElementById(targetId)
+          targetElement?.scrollIntoView({ behavior: 'smooth' })
+        }
       }
     } else {
       router.push(href)
